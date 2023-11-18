@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  nginx-proxy:
+    build: ./nginx
+    container_name: nginx-proxy
+    tty: true
+    depends_on:
+      - node-app
+    ports:
+      - "8080:80"
+    networks:
+      - nodenet
+
+  node-app:
+    build: ./node
+    container_name: node-app
+    tty: true
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PORT: 3000
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: challenge_db
+    networks:
+      - nodenet
+
+  db:
+    container_name: challenge_db
+    image: mysql:8.0.32
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: challenge_db
+    volumes:
+      - ./mysql/people_script.sql:/docker-entrypoint-initdb.d/people_script.sql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      timeout: 10s
+      retries: 5
+    networks:
+      - nodenet
+
+networks:
+  nodenet:
+    driver: bridge
