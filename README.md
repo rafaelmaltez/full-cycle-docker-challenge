@@ -1,15 +1,16 @@
-# full-cycle-docker-challenge
+# Full Cycle - Desafio Docker
 
-Repositório para entrega dos desafios de docker do curso Full Cycle
+Repositório para entrega dos desafios de docker do curso Full Cycle.
 
-Link para a imagem do [Desafio Go](https://hub.docker.com/r/rafaelmaltez89/fullcycle)
+Link para a imagem do [Desafio Go](https://hub.docker.com/r/rafaelmaltez89/fullcycle).
+
 Para conferir o desafio go, basta rodar o comando:
 
 ```bash
 docker run rafaelmaltez89/fullcycle
 ```
-
 Para conferir o resultado do desafio Nginx com Node.js, basta rodar o comando abaixo na raiz desse projeto:
+
 ```bash
 docker-compose up
 ```
