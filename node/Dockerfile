@@ -1,15 +1,5 @@
-FROM node:18
+FROM node:18-slim
+
+USER node
 
 WORKDIR /usr/src/app
-
-COPY package*.json ./
-
-RUN npm install
-
-COPY . .
-
-EXPOSE 3000
-
-ENTRYPOINT [ "npm", "run" ]
-
-CMD [ "start" ]

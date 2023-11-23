@@ -16,9 +16,7 @@ services:
     build: ./node
     container_name: node-app
     tty: true
-    command: dev
-    ports:
-      - "3000:3000"
+    entrypoint: sh -c "npm install && npm run dev"
     volumes:
       - ./node:/usr/src/app
     depends_on:
@@ -48,6 +46,7 @@ services:
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       timeout: 10s
+      interval: 5s
       retries: 5
     networks:
       - nodenet
